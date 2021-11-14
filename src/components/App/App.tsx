@@ -1,9 +1,11 @@
 import React from 'react';
-import PeopleList from './components/peopleList.';
+import PeopleList from '../PeopleList/PeopleList';
+
+import './App.scss';
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <PeopleList />
     </div>
   );
