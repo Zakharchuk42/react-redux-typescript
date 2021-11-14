@@ -11,10 +11,12 @@ export const fetchPeople = () => {
       const people: any[] = response.data.results;
 
       const newArrPeople = people.map((person: any) => {
+        var dob = new Date(person.dob.date).toISOString().slice(0, 10);
+
         const personInfo = {
           gender: person.gender,
           email: person.email,
-          dob: new Date(person.dob.date).toLocaleDateString(),
+          dob,
           namePerson: `${person.name.first} ${person.name.last}`,
           picture: person.picture.large,
           nat: person.nat,
