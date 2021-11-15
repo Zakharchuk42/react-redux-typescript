@@ -11,7 +11,13 @@ const PeopleList: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchPeople());
+    const savedGenderFiltr = JSON.parse(
+      localStorage.getItem('genderFilter') || '{}',
+    );
+
+    const savedNatFiltr = JSON.parse(localStorage.getItem('natFilter') || '{}');
+
+    dispatch(fetchPeople(savedGenderFiltr, savedNatFiltr));
   }, [dispatch]);
 
   if (loading) {
@@ -22,10 +28,12 @@ const PeopleList: React.FC = () => {
   }
 
   return (
-    <div className="PeopleList">
-      {people.map(person => {
-        return <Person key={person.namePerson} person={person} />;
-      })}
+    <div>
+      <div className="PeopleList">
+        {people.map(person => {
+          return <Person key={person.namePerson} person={person} />;
+        })}
+      </div>
     </div>
   );
 };
