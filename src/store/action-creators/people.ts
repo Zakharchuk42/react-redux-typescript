@@ -3,11 +3,16 @@ import { Dispatch } from 'react';
 
 import axios from 'axios';
 
-export const fetchPeople = () => {
+export const fetchPeople = (gender: string = 'all', nat: string = 'all') => {
   return async (dispatch: Dispatch<PeopleAction>) => {
+    const API_URL = 'https://randomuser.me/api/1.3/';
+
     try {
       dispatch({ type: PeopleActionTypes.FETCH_PEOPLE });
-      const response = await axios.get('https://randomuser.me/api/?results=15');
+      const response = await axios.get(
+        `${API_URL}?results=15&gender=${gender}&inc=gender,email,dob,name,picture,nat&nat=${nat}`,
+      );
+
       const people: any[] = response.data.results;
 
       const newArrPeople = people.map((person: any) => {

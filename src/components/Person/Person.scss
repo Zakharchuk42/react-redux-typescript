@@ -1,0 +1,38 @@
+.Person {
+  &__card {
+    margin: 20px;
+    border-radius: 5px;
+    display: flex;
+    width: 380px;
+    overflow: hidden;
+    box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translate(12px);
+    }
+
+    @media (max-width: 450px) {
+      flex-direction: column;
+    }
+  }
+
+  &__image {
+    margin-right: 15px;
+
+    & img {
+      height: 100%;
+    }
+  }
+
+  &__info {
+    padding: 10px;
+  }
+
+  &__name {
+    font-weight: 700;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+}
