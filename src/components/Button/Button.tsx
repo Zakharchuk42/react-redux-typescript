@@ -6,7 +6,7 @@ interface ButtonProps {
   text: string;
   genderFilter: string;
   natFilter: string;
-  action: (gender: string, nat: string) => void | undefined;
+  action: (gender: string, nat: string) => void;
 }
 
 const Button: React.FC<ButtonProps> = ({

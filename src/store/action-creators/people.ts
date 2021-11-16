@@ -3,7 +3,7 @@ import { Dispatch } from 'react';
 
 import axios from 'axios';
 
-export const fetchPeople = (gender: string = 'all', nat: string = 'all') => {
+export const fetchPeople = (gender: string, nat: string) => {
   return async (dispatch: Dispatch<PeopleAction>) => {
     const API_URL = 'https://randomuser.me/api/1.3/';
 
