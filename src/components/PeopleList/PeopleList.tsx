@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTypedSelector } from '../../hooks/typeSelector';
 import { fetchPeople } from '../../store/action-creators/people';
+
 import Person from '../Person/Person';
 
 import './PeopleList.scss';
@@ -11,13 +12,13 @@ const PeopleList: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const savedGenderFiltr = JSON.parse(
+    const savedGenderFilter = JSON.parse(
       localStorage.getItem('genderFilter') || '{}',
     );
-
-    const savedNatFiltr = JSON.parse(localStorage.getItem('natFilter') || '{}');
-
-    dispatch(fetchPeople(savedGenderFiltr, savedNatFiltr));
+    const savedNatFilter = JSON.parse(
+      localStorage.getItem('natFilter') || '{}',
+    );
+    dispatch(fetchPeople(savedGenderFilter, savedNatFilter));
   }, [dispatch]);
 
   if (loading) {
@@ -31,7 +32,7 @@ const PeopleList: React.FC = () => {
     <div>
       <div className="PeopleList">
         {people.map(person => {
-          return <Person key={person.namePerson} person={person} />;
+          return <Person key={person.dob} person={person} />;
         })}
       </div>
     </div>

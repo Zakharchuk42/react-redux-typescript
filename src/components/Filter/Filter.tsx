@@ -6,70 +6,70 @@ import { nationality, gender } from '../../array/nationality';
 import Button from '../Button/Button';
 
 import './Filter.scss';
+import Select from '../Select/Select';
 
 const Filter: React.FC = () => {
-  const dispatch = useDispatch();
-
-  const savedGenderFiltr = JSON.parse(
+  const savedGenderFilter = JSON.parse(
     localStorage.getItem('genderFilter') || '{}',
   );
-  const savedNatFiltr = JSON.parse(localStorage.getItem('natFilter') || '{}');
 
-  const [chooseGender, setChooseGender] = useState<string>(savedGenderFiltr);
-  const [chooseNat, setChooseNat] = useState<string>(savedNatFiltr);
+  const savedNatFilter = JSON.parse(localStorage.getItem('natFilter') || '{}');
 
-  const getFiltredForGender = (gender: string, nat: string) => {
-    dispatch(fetchPeople(gender, nat));
+  const [genderFilter, setGenderFilter] = useState(savedGenderFilter);
+  const [natFilter, setNatFilter] = useState(savedNatFilter);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setGenderFilter(savedGenderFilter);
+  }, [savedGenderFilter]);
+
+  useEffect(() => {
+    setNatFilter(savedNatFilter);
+  }, [savedNatFilter]);
+
+  useEffect(() => {
+    localStorage.setItem('genderFilter', JSON.stringify(genderFilter));
+  }, [genderFilter]);
+
+  useEffect(() => {
+    localStorage.setItem('natFilter', JSON.stringify(natFilter));
+  }, [natFilter]);
+
+  const getGenderValue = (value: string) => {
+    setGenderFilter(value);
   };
 
-  useEffect(() => {
-    localStorage.setItem('genderFilter', JSON.stringify(chooseGender));
-  }, [chooseGender]);
+  const getNatValue = (value: string) => {
+    setNatFilter(value);
+  };
 
-  useEffect(() => {
-    localStorage.setItem('natFilter', JSON.stringify(chooseNat));
-  }, [chooseNat]);
+  const getFiltred = (gender: string, nat: string) => {
+    dispatch(fetchPeople(gender, nat));
+  };
 
   return (
     <div className="Filter">
       <div className="Filter__list">
-        <select
-          value={chooseGender}
-          onChange={e => {
-            setChooseGender(e.target.value);
-          }}
-        >
-          {gender.map(item => {
-            return (
-              <option value={item} key={item}>
-                {item}
-              </option>
-            );
-          })}
-        </select>
+        <Select
+          selectedArray={gender}
+          action={getGenderValue}
+          chooseFilter={genderFilter}
+        />
       </div>
       <div className="Filter__list">
-        <select
-          value={chooseNat}
-          onChange={e => {
-            setChooseNat(e.target.value);
-          }}
-        >
-          {nationality.map(item => {
-            return (
-              <option value={item} key={item}>
-                {item}
-              </option>
-            );
-          })}
-        </select>
+        <Select
+          selectedArray={nationality}
+          action={getNatValue}
+          chooseFilter={natFilter}
+        />
       </div>
       <div className="Filter__button">
         <Button
           text="Apply filters"
-          action={getFiltredForGender}
-          genderFilter={chooseGender}
-          natFilter={chooseNat}
+          action={getFiltred}
+          genderFilter={genderFilter}
+          natFilter={natFilter}
         />
       </div>
     </div>

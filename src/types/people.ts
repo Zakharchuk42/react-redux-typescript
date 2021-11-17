@@ -1,3 +1,5 @@
+// ------------------------------- PEOPLE -------------------------------
+
 export enum PeopleActionTypes {
   FETCH_PEOPLE = 'FETCH_PEOPLE',
   FETCH_PEOPLE_DONE = 'FETCH_PEOPLE_DONE',
